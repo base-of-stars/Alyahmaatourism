@@ -95,6 +95,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-title", content: "Al Yahmaa" },
       // Open Graph Tags
       { property: "og:site_name", content: "Al Yahmaa Tourism LLC" },
+      { property: "og:url", content: "https://www.alyahmaatourismllc.com" },
       {
         property: "og:title",
         content: "Al Yahmaa Tourism | Travel Beyond the Ordinary",
@@ -105,8 +106,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Bespoke global holidays, private desert sanctuaries, and seamless visa concierge from Dubai with 24/7 care.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/og-image-1200x630.jpg" },
-      { property: "og:image:secure_url", content: "/og-image-1200x630.jpg" },
+      { property: "og:image", content: "https://www.alyahmaatourismllc.com/og-image-1200x630.jpg" },
+      { property: "og:image:secure_url", content: "https://www.alyahmaatourismllc.com/og-image-1200x630.jpg" },
       { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
@@ -126,13 +127,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Curated luxury travel, private desert sanctuaries, and seamless visa concierge from Dubai.",
       },
-      { name: "twitter:image", content: "/og-image-1200x630.jpg" },
+      { name: "twitter:image", content: "https://www.alyahmaatourismllc.com/og-image-1200x630.jpg" },
       {
         name: "twitter:image:alt",
         content: "Al Yahmaa Tourism luxury travel destinations",
       },
     ],
     links: [
+      {
+        rel: "canonical",
+        href: "https://www.alyahmaatourismllc.com",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -154,10 +159,47 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    name: "Al Yahmaa Tourism LLC",
+    image: "https://www.alyahmaatourismllc.com/og-image-1200x630.jpg",
+    logo: "https://www.alyahmaatourismllc.com/logo.webp",
+    "@id": "https://www.alyahmaatourismllc.com/#organization",
+    url: "https://www.alyahmaatourismllc.com",
+    telephone: "+971585669200",
+    email: "Alyahmaatourism@gmail.com",
+    priceRange: "$$$$",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "301, Zarooni Building, Al Marrar",
+      addressLocality: "Deira",
+      addressRegion: "Dubai",
+      addressCountry: "AE",
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      opens: "09:00",
+      closes: "21:00",
+    },
+  };
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body>
         {children}

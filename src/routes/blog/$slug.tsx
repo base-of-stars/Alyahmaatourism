@@ -36,11 +36,25 @@ export const Route = createFileRoute("/blog/$slug")({
       meta: [
         { title: `${post.title} | Al Yahmaa Travel Journal` },
         { name: "description", content: post.excerpt },
+        { property: "og:site_name", content: "Al Yahmaa Tourism LLC" },
+        { property: "og:url", content: `https://www.alyahmaatourismllc.com/blog/${post.slug}` },
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.excerpt },
         { property: "og:image", content: post.coverImage },
         { property: "og:type", content: "article" },
+        { property: "article:published_time", content: post.publishedAt },
+        { property: "article:author", content: post.author.name },
+        { property: "article:section", content: post.category },
         { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: post.title },
+        { name: "twitter:description", content: post.excerpt },
+        { name: "twitter:image", content: post.coverImage },
+      ],
+      links: [
+        {
+          rel: "canonical",
+          href: `https://www.alyahmaatourismllc.com/blog/${post.slug}`,
+        },
       ],
     };
   },
