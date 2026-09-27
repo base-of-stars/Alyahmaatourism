@@ -6,7 +6,9 @@ import maldivesImage from "@/assets/maldives.jpg";
 
 export const Route = createFileRoute("/services")({ head: () => ({ meta: [
   { title: "Travel Services in Dubai | Al Yahmaa Tourism" }, { name: "description", content: "Flights, hotels, holiday packages, visa assistance, transfers and UAE experiences with personal support." },
-  { property: "og:title", content: "Travel Services | Al Yahmaa Tourism" }, { property: "og:description", content: "One trusted Dubai team for every part of your journey." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+  { property: "og:title", content: "Travel Services | Al Yahmaa Tourism" }, { property: "og:description", content: "One trusted Dubai team for every part of your journey." }, { property: "og:type", content: "website" },
+  { property: "og:image", content: "/og-image-1200x630.jpg" }, { property: "og:image:width", content: "1200" }, { property: "og:image:height", content: "630" },
+  { name: "twitter:card", content: "summary_large_image" }, { name: "twitter:image", content: "/og-image-1200x630.jpg" },
 ] }), component: ServicesPage });
 
 const services = [

@@ -77,23 +77,74 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Al Yahmaa Tourism" },
-      { name: "description", content: "Tailor-made travel experiences from Dubai." },
+      { title: "Al Yahmaa Tourism | Bespoke Luxury Travel & UAE Experiences" },
+      {
+        name: "description",
+        content:
+          "Curated global holidays, private desert expeditions, 5-star packages, express UAE tourist visas, and corporate concierge from Dubai.",
+      },
       { name: "author", content: "Al Yahmaa Tourism LLC" },
-      { property: "og:title", content: "Al Yahmaa Tourism" },
-      { property: "og:description", content: "Tailor-made travel experiences from Dubai." },
+      {
+        name: "keywords",
+        content:
+          "Al Yahmaa Tourism, Dubai luxury travel, UAE tourist visa, private desert safari, Maldives luxury packages, Cappadocia cave suites, Switzerland alpine train, Dubai VIP concierge",
+      },
+      { name: "theme-color", content: "#0c1926" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "apple-mobile-web-app-title", content: "Al Yahmaa" },
+      // Open Graph Tags
+      { property: "og:site_name", content: "Al Yahmaa Tourism LLC" },
+      {
+        property: "og:title",
+        content: "Al Yahmaa Tourism | Travel Beyond the Ordinary",
+      },
+      {
+        property: "og:description",
+        content:
+          "Bespoke global holidays, private desert sanctuaries, and seamless visa concierge from Dubai with 24/7 care.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image-1200x630.jpg" },
+      { property: "og:image:secure_url", content: "/og-image-1200x630.jpg" },
+      { property: "og:image:type", content: "image/jpeg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      {
+        property: "og:image:alt",
+        content:
+          "Al Yahmaa Tourism: Panoramic Dubai Skyline, Private Desert Majlis, Cappadocia Balloons and Maldives Overwater Sanctuary",
+      },
+      // Twitter Card Tags
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: "Al Yahmaa Tourism | Bespoke Luxury Travel from Dubai",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Curated luxury travel, private desert sanctuaries, and seamless visa concierge from Dubai.",
+      },
+      { name: "twitter:image", content: "/og-image-1200x630.jpg" },
+      {
+        name: "twitter:image:alt",
+        content: "Al Yahmaa Tourism luxury travel destinations",
+      },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-       { rel: "icon", href: "/favicon.png", type: "image/png" },
-       { rel: "preconnect", href: "https://fonts.googleapis.com" },
-       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
