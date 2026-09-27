@@ -1,15 +1,308 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Clock3, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { useState } from "react";
+import {
+  Clock3,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Send,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { PageHero, SiteShell } from "@/components/site-shell";
 import dubaiImage from "@/assets/dubai-creek-hero.jpg";
 
-export const Route = createFileRoute("/contact")({ head: () => ({ meta: [
-  { title: "Contact Al Yahmaa Tourism | Deira, Dubai" }, { name: "description", content: "Call, email, WhatsApp or visit Al Yahmaa Tourism at Zarooni Building, Al Marrar, Deira, Dubai." },
-  { property: "og:title", content: "Plan Your Trip | Al Yahmaa Tourism" }, { property: "og:description", content: "Tell our Dubai travel specialists where you want to go." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-] }), component: ContactPage });
+export const Route = createFileRoute("/contact")({
+  head: () => ({
+    meta: [
+      {
+        title: "Contact Al Yahmaa Tourism | Deira, Dubai Headquarters",
+      },
+      {
+        name: "description",
+        content:
+          "Connect with Al Yahmaa Tourism LLC in Deira, Dubai. WhatsApp concierge, phone, email, and office consultation for bespoke holidays and visas.",
+      },
+      {
+        property: "og:title",
+        content: "Contact Al Yahmaa Tourism | Dubai",
+      },
+      {
+        property: "og:description",
+        content: "Speak directly with our Dubai travel designers.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: ContactPage,
+});
 
-function ContactPage() { return <SiteShell><main><PageHero eyebrow="Start a conversation" title="Where would you like to go?" text="Share your dates, destination ideas and the kind of trip you have in mind. Our team will help turn it into a clear, considered plan." image={dubaiImage} imageAlt="Dubai Creek and the city skyline at sunset" />
-  <section className="py-20 md:py-28"><div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-8"><div><p className="eyebrow">Speak with our team</p><h2 className="section-title">Personal travel advice, from Dubai</h2><p className="mt-5 leading-7 text-muted-foreground">For the fastest response, send us a WhatsApp message with your preferred destination, dates and number of travellers.</p><Button asChild size="lg" className="mt-7 rounded-sm bg-coral text-coral-foreground hover:bg-coral/90"><a href="https://wa.me/971585669200" target="_blank" rel="noreferrer"><MessageCircle />Chat on WhatsApp</a></Button></div><div className="grid gap-px bg-border sm:grid-cols-2">{[[Phone,"Call us","+971 58 566 9200","tel:+971585669200"],[Mail,"Email us","Alyahmaatourism@gmail.com","mailto:Alyahmaatourism@gmail.com"],[MapPin,"Visit us","301, Zarooni Building, Al Marrar, Deira, Dubai","https://maps.google.com/?q=Zarooni+Building+Al+Marrar+Deira+Dubai"],[Clock3,"Office hours","Monday–Saturday, 9:00–18:00","#"]].map(([Icon,label,value,href]) => { const ContactIcon = Icon as typeof Phone; return <a key={label as string} href={href as string} target={(href as string).startsWith("http") ? "_blank" : undefined} rel={(href as string).startsWith("http") ? "noreferrer" : undefined} className="group bg-surface p-7 transition-colors hover:bg-background"><ContactIcon className="size-7 text-coral"/><p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">{label as string}</p><p className="mt-2 font-semibold leading-6 group-hover:text-coral">{value as string}</p></a> })}</div></div></section>
-  <section className="bg-primary py-20 text-hero-foreground"><div className="mx-auto max-w-5xl px-5 lg:px-8"><div className="text-center"><p className="eyebrow text-gold">Before you message</p><h2 className="font-display text-4xl sm:text-5xl">A few details help us plan faster</h2></div><div className="mt-10 grid gap-6 sm:grid-cols-3">{[["01","Where and when"],["02","Who is travelling"],["03","Your ideal budget"]].map(([n,title]) => <div key={n} className="border border-hero-foreground/15 p-6 text-center"><span className="font-display text-3xl text-gold">{n}</span><p className="mt-3 font-semibold">{title}</p></div>)}</div><p className="mt-7 text-center text-xs text-hero-foreground/50">Sample office hours are shown and can be updated with your confirmed schedule.</p></div></section>
-</main></SiteShell> }
+function ContactPage() {
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [destination, setDestination] = useState("Maldives");
+  const [passengers, setPassengers] = useState("2 Adults");
+  const [notes, setNotes] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = encodeURIComponent(
+      `Hello Al Yahmaa Tourism!\nName: ${fullName}\nPhone: ${phone}\nDestination: ${destination}\nParty: ${passengers}\nDetails: ${notes || "No special notes"}`
+    );
+    window.open(`https://wa.me/971585669200?text=${text}`, "_blank");
+    setSubmitted(true);
+  };
+
+  return (
+    <SiteShell>
+      <main>
+        <PageHero
+          eyebrow="Start A Conversation"
+          title="Where would you like to go?"
+          text="Share your dates, party size, and travel style. Our Dubai travel specialists will prepare a thoughtful, transparent proposal within hours."
+          image={dubaiImage}
+          imageAlt="Dubai Creek and the illuminated city skyline at sunset"
+        />
+
+        {/* Contact Information & Interactive Form */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-12 lg:px-8">
+            {/* Left: Office & Direct Channels */}
+            <div className="lg:col-span-5 space-y-8">
+              <div>
+                <p className="eyebrow">Dubai Concierge Desk</p>
+                <h2 className="section-title text-3xl sm:text-4xl">
+                  Always available, always local
+                </h2>
+                <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+                  Our headquarters are located in the historic trading heart of
+                  Deira, Dubai. We welcome clients for private in-person
+                  consultations, or connect immediately via our verified
+                  WhatsApp desk.
+                </p>
+              </div>
+
+              <div className="grid gap-4">
+                <a
+                  href="https://wa.me/971585669200"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-start gap-4 rounded-sm border border-emerald-500/30 bg-emerald-50/50 p-5 dark:bg-emerald-950/20 transition-all hover:border-emerald-500"
+                >
+                  <MessageCircle className="size-6 text-emerald-600 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                      WhatsApp Priority Line
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-foreground">
+                      +971 58 566 9200
+                    </p>
+                    <p className="mt-1 text-[11px] text-muted-foreground">
+                      Fastest response · Typically replies within 5 minutes
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="tel:+971585669200"
+                  className="flex items-start gap-4 rounded-sm border border-border bg-card p-5 transition-all hover:border-gold"
+                >
+                  <Phone className="size-6 text-coral shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                      Direct Telephone
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-foreground">
+                      +971 58 566 9200
+                    </p>
+                    <p className="mt-1 text-[11px] text-muted-foreground">
+                      Arabic and English spoken fluently
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="mailto:Alyahmaatourism@gmail.com"
+                  className="flex items-start gap-4 rounded-sm border border-border bg-card p-5 transition-all hover:border-gold"
+                >
+                  <Mail className="size-6 text-coral shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                      Official Inquiries Email
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-foreground break-all">
+                      Alyahmaatourism@gmail.com
+                    </p>
+                    <p className="mt-1 text-[11px] text-muted-foreground">
+                      Written proposals & corporate tenders
+                    </p>
+                  </div>
+                </a>
+
+                <div className="flex items-start gap-4 rounded-sm border border-border bg-card p-5">
+                  <MapPin className="size-6 text-coral shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                      Office Address
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-foreground">
+                      301, Zarooni Building, Al Marrar, Deira
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Dubai, United Arab Emirates
+                    </p>
+                    <p className="mt-2 text-[11px] text-muted-foreground">
+                      Mon – Sat: 9:00 AM – 9:00 PM GST
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Interactive Inquiry Form */}
+            <div className="lg:col-span-7">
+              <div className="rounded-sm border border-border bg-card p-8 shadow-md md:p-10">
+                <span className="eyebrow">Trip Consultation Request</span>
+                <h3 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">
+                  Tell us about your upcoming plans
+                </h3>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                  Complete this form to generate a customized travel request
+                  directly to our lead travel designer on WhatsApp.
+                </p>
+
+                {submitted ? (
+                  <div className="mt-8 rounded-sm border border-gold/30 bg-gold/10 p-6 text-center text-sm text-gold">
+                    <Sparkles className="mx-auto size-8 text-gold" />
+                    <p className="mt-3 font-display text-lg font-bold">
+                      Thank You! Your Request Has Been Prepared
+                    </p>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      If WhatsApp did not automatically open, please click below
+                      to connect with our concierge immediately.
+                    </p>
+                    <Button
+                      asChild
+                      className="mt-5 rounded-sm bg-gold text-xs font-bold text-ink hover:bg-gold/90"
+                    >
+                      <a
+                        href="https://wa.me/971585669200"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Open WhatsApp Concierge
+                      </a>
+                    </Button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. Faisal Al-Mansoori"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          className="mt-2 h-11 w-full rounded-sm border border-border bg-background px-3.5 text-xs text-foreground focus:border-gold focus:outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                          Mobile / WhatsApp Number *
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          placeholder="+971 50 000 0000"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="mt-2 h-11 w-full rounded-sm border border-border bg-background px-3.5 text-xs text-foreground focus:border-gold focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                          Intended Destination
+                        </label>
+                        <select
+                          value={destination}
+                          onChange={(e) => setDestination(e.target.value)}
+                          className="mt-2 h-11 w-full rounded-sm border border-border bg-background px-3.5 text-xs text-foreground focus:border-gold focus:outline-none"
+                        >
+                          <option value="Maldives">Maldives Overwater Sanctuary</option>
+                          <option value="Switzerland">Swiss Alps & Zermatt</option>
+                          <option value="Cappadocia">Cappadocia & Istanbul</option>
+                          <option value="Bali">Bali & Nusa Islands</option>
+                          <option value="Dubai Desert">Dubai Private Desert Reserve</option>
+                          <option value="Georgia">Georgia & Kazbegi Retreat</option>
+                          <option value="Amalfi Coast">Italy & Amalfi Coast</option>
+                          <option value="Japan">Kyoto & Tokyo Harmony</option>
+                          <option value="UAE Tourist Visa">UAE Tourist Visa Assistance</option>
+                          <option value="Corporate / MICE">Corporate / Group Travel</option>
+                          <option value="Other">Other Bespoke Destination</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                          Travel Party Size
+                        </label>
+                        <select
+                          value={passengers}
+                          onChange={(e) => setPassengers(e.target.value)}
+                          className="mt-2 h-11 w-full rounded-sm border border-border bg-background px-3.5 text-xs text-foreground focus:border-gold focus:outline-none"
+                        >
+                          <option value="Solo Traveler">Solo Traveler</option>
+                          <option value="Couple (2 Adults)">Couple (2 Adults)</option>
+                          <option value="Family (2 Adults + Children)">Family (2 Adults + Children)</option>
+                          <option value="Small Group (4-8 Guests)">Small Group (4-8 Guests)</option>
+                          <option value="Corporate Delegation (8+ Guests)">Corporate Delegation (8+ Guests)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                        Specific Wishes, Dates or Preferences
+                      </label>
+                      <textarea
+                        rows={4}
+                        placeholder="Tell us about your preferred travel window, flight class, hotel style, or specific experiences you'd like included..."
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                        className="mt-2 w-full rounded-sm border border-border bg-background p-3.5 text-xs text-foreground focus:border-gold focus:outline-none"
+                      />
+                    </div>
+
+                    <Button
+                      type="submit"
+                      className="h-12 w-full rounded-sm bg-gold text-xs font-bold uppercase tracking-wider text-ink hover:bg-gold/90"
+                    >
+                      <Send className="mr-2 size-4" />
+                      Send Travel Request to Concierge
+                    </Button>
+
+                    <p className="text-center text-[11px] text-muted-foreground">
+                      Strict privacy guaranteed · No automated sales calls
+                    </p>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </SiteShell>
+  );
+}
