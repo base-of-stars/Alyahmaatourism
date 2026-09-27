@@ -16,7 +16,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import logoAsset from "@/assets/al-yahmaa-logo.png.asset.json";
-import brandLogo from "@/assets/logo.png";
+import brandLogo from "@/assets/logo.webp";
 
 export const mainNav = [
   { label: "Home", to: "/" as const },
