@@ -1,0 +1,16 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { PageHero, SiteShell } from "@/components/site-shell";
+import cappadociaImage from "@/assets/cappadocia.jpg";
+import { destinations } from "@/lib/travel-data";
+
+export const Route = createFileRoute("/destinations")({ head: () => ({ meta: [
+  { title: "Holiday Destinations & Packages | Al Yahmaa Tourism" }, { name: "description", content: "Explore sample holidays to the Maldives, Bali, Türkiye and unforgettable UAE experiences." },
+  { property: "og:title", content: "Inspired Destinations | Al Yahmaa Tourism" }, { property: "og:description", content: "Handpicked escapes shaped around your time, style and budget." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+] }), component: DestinationsPage });
+
+function DestinationsPage() { return <SiteShell><main><PageHero eyebrow="The world, thoughtfully chosen" title="Places that stay with you." text="These sample journeys are a starting point. Every route, hotel and experience can be adjusted around your dates, pace and travel style." image={cappadociaImage} imageAlt="Hot air balloons floating over Cappadocia" />
+  <section className="py-20 md:py-28"><div className="mx-auto max-w-7xl px-5 lg:px-8"><div className="mb-10 max-w-2xl"><p className="eyebrow">Featured escapes</p><h2 className="section-title">Four ways to leave the everyday behind</h2></div><div className="grid gap-x-6 gap-y-12 md:grid-cols-2">{destinations.map((item) => <article key={item.name} className="group"><div className="overflow-hidden rounded-sm"><img src={item.image} alt={item.name} loading="lazy" width={1600} height={1000} className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-105" /></div><div className="pt-5"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.14em] text-coral">{item.region}</p><h3 className="mt-1 font-display text-3xl">{item.name}</h3></div><p className="font-semibold text-primary">{item.price}</p></div><p className="mt-3 max-w-xl leading-7 text-muted-foreground">{item.description}</p><div className="mt-5 flex items-center gap-5 text-sm text-muted-foreground"><span className="flex items-center gap-2"><CalendarDays className="size-4 text-coral" />{item.duration}</span><span className="flex items-center gap-2"><MapPin className="size-4 text-coral" />Tailor-made</span></div></div></article>)}</div></div></section>
+  <section className="bg-primary py-16 text-hero-foreground"><div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-7 px-5 md:flex-row md:items-center lg:px-8"><div><p className="text-xs font-bold uppercase tracking-[0.16em] text-gold">Have somewhere else in mind?</p><h2 className="mt-2 font-display text-3xl sm:text-4xl">Tell us where. We will shape the journey.</h2></div><Button asChild size="lg" className="rounded-sm bg-gold text-ink hover:bg-gold/90"><a href="https://wa.me/971585669200" target="_blank" rel="noreferrer">Request an itinerary <ArrowRight /></a></Button></div></section>
+</main></SiteShell> }
